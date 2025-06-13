@@ -1,16 +1,11 @@
 name = "photography-learning"
-compatibility_date = "2025-06-13"
-main = "worker/src/index.ts"
+compatibility_date = "2023-10-30"
 
+# 使用site配置来处理静态资源
 [site]
 bucket = "./out"
 
-[build]
-command = "npm run build"
-
-[assets]
-directory = "./out"
-
+# 定义路由
 [[routes]]
 pattern = "photographystudy.online/*"
 zone_name = "photographystudy.online"
