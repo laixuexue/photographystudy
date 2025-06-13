@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "npx wrangler deploy"
+    "deploy": "node deploy.js",
+    "cf:deploy": "npx wrangler deploy"
   },
   "keywords": [
     "photography",
