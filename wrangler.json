@@ -2,20 +2,7 @@
   "name": "photography-learning",
   "compatibility_date": "2025-06-13",
   "main": "worker/src/index.ts",
-  "build": {
-    "command": "npm run build"
-  },
   "site": {
     "bucket": "./out"
-  },
-  "routes": [
-    {
-      "pattern": "photographystudy.online/*",
-      "zone_name": "photographystudy.online"
-    },
-    {
-      "pattern": "www.photographystudy.online/*",
-      "zone_name": "photographystudy.online"
-    }
-  ]
+  }
 } 
