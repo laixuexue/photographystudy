@@ -8,14 +8,40 @@ import { motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { CSSProperties } from "react";
 
 interface RawAdjustmentSimulatorProps {
   initialImage?: string;
   className?: string;
 }
 
+// 预设类型定义
+interface PresetType {
+  name: string;
+  exposure: number;
+  contrast: number;
+  highlights: number;
+  shadows: number;
+  whites: number;
+  blacks: number;
+  temperature: number;
+  tint: number;
+  clarity: number;
+  vibrance: number;
+  saturation: number;
+}
+
+// 混合模式类型
+type MixBlendModeType = 'normal' | 'multiply' | 'screen' | 'overlay' | 'darken' | 'lighten' | 'color-dodge' | 'color-burn' | 'hard-light' | 'soft-light' | 'difference' | 'exclusion' | 'hue' | 'saturation' | 'color' | 'luminosity';
+
+// 叠加样式类型
+interface OverlayStyle {
+  background: string;
+  mixBlendMode: MixBlendModeType;
+}
+
 // 预设样式
-const presets = [
+const presets: PresetType[] = [
   { name: "自然", exposure: 0, contrast: 10, highlights: -10, shadows: 15, whites: 5, blacks: -5, temperature: 0, tint: 0, clarity: 10, vibrance: 15, saturation: 5 },
   { name: "高对比度", exposure: 0, contrast: 30, highlights: -20, shadows: -10, whites: 15, blacks: -15, temperature: 0, tint: 0, clarity: 20, vibrance: 10, saturation: 5 },
   { name: "淡雅", exposure: 0.3, contrast: -10, highlights: -5, shadows: 20, whites: 0, blacks: 0, temperature: 5, tint: 5, clarity: 0, vibrance: 5, saturation: -10 },
@@ -62,7 +88,7 @@ export function RawAdjustmentSimulator({
   };
   
   // 应用预设
-  const applyPreset = (preset) => {
+  const applyPreset = (preset: PresetType) => {
     setExposure(preset.exposure);
     setContrast(preset.contrast);
     setHighlights(preset.highlights);
@@ -77,7 +103,7 @@ export function RawAdjustmentSimulator({
   };
   
   // 图像滤镜样式 
-  const filterStyle = {
+  const filterStyle: CSSProperties = {
     filter: `
       brightness(${1 + exposure/100})
       contrast(${1 + contrast/100})
@@ -88,37 +114,38 @@ export function RawAdjustmentSimulator({
   };
   
   // 模拟的高光和阴影调整
-  const overlayStyles = {
+  const overlayStyles: Record<string, CSSProperties> = {
     highlights: {
       background: `rgba(255,255,255,${Math.abs(highlights)/200})`,
-      mixBlendMode: highlights >= 0 ? 'lighten' : 'darken',
+      mixBlendMode: (highlights >= 0 ? 'lighten' : 'darken') as MixBlendModeType,
     },
     shadows: {
       background: `rgba(0,0,0,${Math.abs(shadows)/200})`,
-      mixBlendMode: shadows >= 0 ? 'lighten' : 'darken',
+      mixBlendMode: (shadows >= 0 ? 'lighten' : 'darken') as MixBlendModeType,
     },
     whites: {
       background: `rgba(255,255,255,${Math.abs(whites)/200})`,
-      mixBlendMode: whites >= 0 ? 'lighten' : 'darken',
+      mixBlendMode: (whites >= 0 ? 'lighten' : 'darken') as MixBlendModeType,
     },
     blacks: {
       background: `rgba(0,0,0,${Math.abs(blacks)/200})`,
-      mixBlendMode: blacks >= 0 ? 'lighten' : 'darken',
+      mixBlendMode: (blacks >= 0 ? 'lighten' : 'darken') as MixBlendModeType,
     },
     temperature: {
       background: temperature > 0 
         ? `rgba(255,200,100,${Math.abs(temperature)/200})`
         : `rgba(100,150,255,${Math.abs(temperature)/200})`,
-      mixBlendMode: 'overlay',
+      mixBlendMode: 'overlay' as MixBlendModeType,
     },
     tint: {
       background: tint > 0 
         ? `rgba(255,150,255,${Math.abs(tint)/200})`
         : `rgba(150,255,150,${Math.abs(tint)/200})`,
-      mixBlendMode: 'overlay',
+      mixBlendMode: 'overlay' as MixBlendModeType,
     },
     vibrance: {
-      background: `rgba(0,0,0,0)`, // 在实际应用中，vibrance是复杂的算法，这里简化处理
+      background: `rgba(0,0,0,0)`,
+      mixBlendMode: 'normal' as MixBlendModeType,
     },
   };
 

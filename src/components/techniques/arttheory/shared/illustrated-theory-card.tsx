@@ -8,7 +8,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 interface IllustratedTheoryCardProps {
   title: string;
   icon?: ReactNode;
-  description: string;
+  description?: string;
   imageSrc: string;
   imageAlt: string;
   footer?: ReactNode;
@@ -20,7 +20,7 @@ interface IllustratedTheoryCardProps {
 export function IllustratedTheoryCard({
   title,
   icon,
-  description,
+  description = "",
   imageSrc,
   imageAlt,
   footer,

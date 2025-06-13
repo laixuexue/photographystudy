@@ -10,4 +10,11 @@ command = "cd .. && npm run build"
 
 [env.production]
 name = "photography-learning-prod"
-route = "photography-learning.yourdomain.com/*" 
+
+[[routes]]
+pattern = "photographystudy.online/*"
+zone_name = "photographystudy.online"
+
+[[routes]]
+pattern = "www.photographystudy.online/*"
+zone_name = "photographystudy.online" 
