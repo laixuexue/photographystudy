@@ -1,0 +1,16 @@
+name = "photography-learning"
+compatibility_date = "2025-06-13"
+
+[site]
+bucket = "./out"
+
+[build]
+command = "npm run build"
+
+[[routes]]
+pattern = "photographystudy.online/*"
+zone_name = "photographystudy.online"
+
+[[routes]]
+pattern = "www.photographystudy.online/*"
+zone_name = "photographystudy.online" 
